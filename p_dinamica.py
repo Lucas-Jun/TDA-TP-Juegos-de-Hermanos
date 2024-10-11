@@ -5,9 +5,7 @@ def quitar_rama(l, r, m):
 
 def main(monedas):
     n = len(monedas)
-    
     M = [[0 for j in range(n)] for i in range(n)]
-    i = 0
 
     for largo in range(1, n+1): 
         for left_index in range(0, n-largo+1):
