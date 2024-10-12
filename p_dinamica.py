@@ -1,9 +1,12 @@
+import sys
+import set_files
+
 def quitar_rama(l, r, m):
         if m[l] > m[r]:
             return l+1, r
         return l, r-1
 
-def main(monedas):
+def solucion_dinamica(monedas):
     n = len(monedas)
     M = [[0 for j in range(n)] for i in range(n)]
 
@@ -23,4 +26,6 @@ def main(monedas):
     return M[0][n-1]
  
 if __name__ == '__main__':
-    main()
+    archivo_txt = sys.argv[1]
+    monedas = set_files.set_coins(archivo_txt)
+    solucion_dinamica(monedas)

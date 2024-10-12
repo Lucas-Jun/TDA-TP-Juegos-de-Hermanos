@@ -1,11 +1,25 @@
 # TDA-TP-Juegos-de-Hermanos
 
-### Para testear GREEDY
-    python test_greedy.py para todos los test de esa parte
-    python -m unittest test_greedy.py lo mismo
-    desde el editor se puede correr los test tambien
+## Miembros
 
-### Para testear PROGRAMACION DINAMICA
-    mover uno de los archivos .txt a directorio junto a los archivos .py luego desmarcar en set_files.py el import dinamica y el __name__ == '__main__' de mas abajo
-    Luego hacer:
-    python set_tests.py xxxx.txt 
+Gonzalez Cina Diego Adrian, Irala Elbio, Jun Lucas, Yuschak Ignacio
+
+---
+## Run tests
+
+Comandos para correr las pruebas
+```
+python test_greedy.py
+
+python test_p_dinamica.py
+```
+
+## Run program
+Asegurarse que le archivo `.txt` este en el mismo directorio. La sintaxis del mismo debe ser numero;numero sin espacios. Ejemplo: `520;781;334;568;706;362;201;482;19;145`.
+
+Comandos para correr
+```
+python greedy.py ejemplo.txt
+
+python p_dinamica.py ejemplo.txt
+```

@@ -1,3 +1,6 @@
+import set_files
+import sys
+
 def obtener_moneda_mas_grande(a, b, l, r):
         if a > b:
             return a , l+1 , r
@@ -8,7 +11,7 @@ def obtener_moneda_mas_chica(a, b, l, r):
         return a , l+1 , r
     return b, l , r-1
 
-def main(monedas):
+def solucion_greedy(monedas):
     contador_Sophia = 0
     contador_Mateo = 0
     l = 0
@@ -27,4 +30,6 @@ def main(monedas):
     return contador_Sophia, contador_Mateo
 
 if __name__ == '__main__':
-    main()
+    archivo_txt = sys.argv[1]
+    monedas = set_files.set_coins(archivo_txt)
+    solucion_greedy(monedas)
