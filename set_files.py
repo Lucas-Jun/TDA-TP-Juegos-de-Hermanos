@@ -1,6 +1,4 @@
 import sys
-#import greedy
-#import p_dinamica
 
 def set_coins(archivo_txt):
     with open(archivo_txt, "r") as archivo:
@@ -20,31 +18,12 @@ def set_coins(archivo_txt):
 
     return monedas
 
-"""
-    Esto estaba para la parte de obtener los pasos a realizar pero ma da paja testearlo
-
-    def set_results(archivo_txt):
-    resultados = []
-
-    with open(archivo_txt, "r") as archivo:
-        lineas = archivo.readlines()
-        for linea in lineas:
-            if linea[0] != 'G':
-                continue
-            ganancia = linea.strip().split(':')
-            ganancia = int(ganancia[1])
-            resultados.append(ganancia[1])
-
+def set_results(cont_s, cont_m, orden, archivo_txt):
+    with open(archivo_txt, "w") as archivo:
+            archivo.writelines(orden)
+            archivo.write("\n")
+            ganancia_s = "Ganancia de Sophia: " + str(cont_s) + "\n"
+            ganancia_m = "Ganancia de Mateo: " + str(cont_m) + "\n"
+            archivo.write(ganancia_s)
+            archivo.write(ganancia_m)
     archivo.close()
-
-    return resultados
-"""
-
-"""
-if __name__ == '__main__':
-    archivo_txt = sys.argv[1]
-    monedas = set_coins(archivo_txt)
-    contador_Sophia= p_dinamica.main(monedas)
-    print(contador_Sophia)
-
-"""
