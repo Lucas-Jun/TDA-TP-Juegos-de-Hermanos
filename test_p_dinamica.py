@@ -11,62 +11,62 @@ class TestGreegy(unittest.TestCase):
     def test_5_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\5.txt'
         self.lista = set_files.set_coins(new_path)
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 1483)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 1483)
 
     def test_10_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\10.txt'
         self.lista = set_files.set_coins(new_path)
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 2338)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 2338)
 
     def test_20_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\20.txt'
         self.lista = set_files.set_coins(new_path)
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 5234)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 5234)
 
     def test_25_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\25.txt'
         self.lista = set_files.set_coins(new_path)
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 7491)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 7491)
     
     def test_50_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\50.txt'
         self.lista = set_files.set_coins(new_path)
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 14976)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 14976)
     
     def test_100_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\100.txt'
         self.lista = set_files.set_coins(new_path)    
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 28844)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 28844)
     
     def test_1000_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\1000.txt'
         self.lista = set_files.set_coins(new_path)     
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 1401590)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 1401590)
     
     def test_2000_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\2000.txt'
         self.lista = set_files.set_coins(new_path)     
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 2869340)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 2869340)
 
     def test_5000_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\5000.txt'
         self.lista = set_files.set_coins(new_path)     
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 9939221)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 9939221)
 
     def test_10000_elementos(self):
         new_path = self.cur_path + '\\test-juegoDeHermanos\\parte2-tests\\10000.txt'
         self.lista = set_files.set_coins(new_path)    
-        res_s = p_dinamica.solucion_dinamica(self.lista)
-        self.assertEqual(res_s, 34107537)
+        _, res = p_dinamica.solucion_dinamica(self.lista)
+        self.assertEqual(res, 34107537)
     
 
 if __name__ == '__main__':
