@@ -1,0 +1,19 @@
+Bordes-iguales.txt
+Última moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia; Primera moneda para Mateo
+Ganancia de Sophia: 153
+Ganancia de Mateo: 96
+
+Cantidad-Impar.txt
+Última moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia
+Ganancia de Sophia: 32
+Ganancia de Mateo: 17
+
+Orden-Creciente.txt
+Última moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia; Primera moneda para Mateo; Última moneda para Sophia
+Ganancia de Sophia: 51
+Ganancia de Mateo: 15
+
+Orden-Decreciente.txt
+Primera moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia; Última moneda para Mateo; Primera moneda para Sophia
+Ganancia de Sophia: 51
+Ganancia de Mateo: 15
