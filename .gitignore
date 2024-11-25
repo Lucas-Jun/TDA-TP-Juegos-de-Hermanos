@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 out_greedy.txt
 out_p_dinamica.txt
+10_10_10.txt

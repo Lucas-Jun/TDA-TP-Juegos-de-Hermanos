@@ -80,18 +80,23 @@ def verifica_fila_demanda(fila, largo, demanda_filas, orientacion):
 # Esta funcion verifica que haya espacio en las demandas de las columnas para 
 # poder colocar el barco, por ejemplo si el barco tiene 3 de largo, almenos tendra que
 # haber 3 columnas de seguido que tiengan una demanda mayor a 1
-def verificar_espacio_en_columnas(tablero, barco, demanda_columnas):
+def verificar_espacio_en_columnas(tablero, barco, demanda_columnas, orientacion):
     m = len(tablero[0])
-    contador = 0
-    for col in range(m):
-        if demanda_columnas[col] > 0:
-            contador += 1
-            if contador >= barco:
-                return True
-        else:
-            contador = 0
-    return False
-
+    if orientacion == "H":
+        contador = 0
+        for col in range(m):
+            if demanda_columnas[col] > 0:
+                contador += 1
+                if contador >= barco:
+                    return col
+            else:
+                contador = 0
+    else:
+        for col in range(m):
+            if demanda_columnas[col] >= barco:
+                return col
+        
+    return m
 
 # Verificar si se salio del tablero
 def salio_limite_fila(tablero, fila, largo):
@@ -99,74 +104,6 @@ def salio_limite_fila(tablero, fila, largo):
 
 def salio_limite_columna(tablero,col, largo):
     return col + largo > len(tablero[0])
-
-
-def ubicar_barcos(barcos, tablero, demanda_filas, demanda_columnas):
-    if not barcos:
-        # Verifica si todas las demandas están cumplidas
-        return True
-
-    barco = barcos.pop()  # Intentar colocar el barco más grande restante
-
-    hay_espacio_en_columnas = True
-
-    for fila in range(len(tablero)):
-        primera_vez = True
-
-        for orientacion in ["H", "V"]:
-            if primera_vez and barco == 1:
-                primera_vez = False
-                continue
-            
-            if orientacion == "V" and salio_limite_fila(tablero, fila, barco):
-                continue
-
-            if not verifica_fila_demanda(fila, barco, demanda_filas, orientacion):
-                continue
-
-            if hay_espacio_en_columnas:
-                hay_espacio_en_columnas = verificar_espacio_en_columnas(tablero, barco, demanda_columnas)
-
-            if orientacion == "H" and not hay_espacio_en_columnas:
-                continue
-            
-            for col in range(len(tablero[0])):
-                if (orientacion == "H" and salio_limite_columna(tablero, col, barco)):
-                    break
-
-                if es_valido(tablero, fila, col, barco, orientacion, demanda_columnas):
-                    # Colocar el barco
-                    if orientacion == "H":
-                        for c in range(col, col + barco):
-                            tablero[fila][c] = 1
-                            demanda_filas[fila] -= 1
-                            demanda_columnas[c] -= 1
-                             
-                    else:  # Vertical
-                        for f in range(fila, fila + barco):
-                            tablero[f][col] = 1
-                            demanda_filas[f] -= 1
-                            demanda_columnas[col] -= 1
-
-                    if ubicar_barcos(barcos, tablero, demanda_filas, demanda_columnas):
-                        return True
-                    
-                    hay_espacio_en_columnas = True
-
-                    # Backtrack
-                    if orientacion == "H":
-                        for c in range(col, col + barco):
-                            tablero[fila][c] = 0
-                            demanda_filas[fila] += 1
-                            demanda_columnas[c] += 1
-
-                    else:  # Vertical
-                        for f in range(fila, fila + barco):
-                            tablero[f][col] = 0
-                            demanda_filas[f] += 1
-                            demanda_columnas[col] += 1
-    barcos.append(barco)
-    return False
 
 
 def es_valido(tablero, fila, col, largo, orientacion, demanda_columnas):
@@ -183,12 +120,77 @@ def es_valido(tablero, fila, col, largo, orientacion, demanda_columnas):
     return True
 
 
+def ubicar_barcos_backtracking(lista_barcos, tablero, demanda_filas, demanda_columnas, indice_anterior, barco_anterior):
+    if not lista_barcos:
+        return True
+    barco_actual = lista_barcos.pop()
+    i_fila = 0
+    i_columna = 0
+
+    # esto rompe aun nose porque
+    #if (barco_anterior <= barco_actual):
+    #    i_fila, _ = indice_anterior
+
+    primera_vez = True
+    for orientacion in ["H", "V"]:
+        if primera_vez and barco_actual == 1:
+            primera_vez = False
+            continue
+        for fila in range(i_fila, len(tablero)):
+
+            if orientacion == "V" and salio_limite_fila(tablero, fila, barco_actual):
+                continue
+            if not verifica_fila_demanda(fila, barco_actual, demanda_filas, orientacion):
+                continue
+
+            i_columna = verificar_espacio_en_columnas(tablero, barco_actual, demanda_columnas, orientacion)
+
+            if i_columna >= (len(tablero[0])):
+                break
+
+            for col in range(i_columna, len(tablero[0])):
+                if (orientacion == "H" and salio_limite_columna(tablero, col, barco_actual)):
+                    break
+
+                if es_valido(tablero, fila, col, barco_actual, orientacion, demanda_columnas):
+                    # Colocar el barco
+                    if orientacion == "H":
+                        for c in range(col, col + barco_actual):
+                            tablero[fila][c] = 1
+                            demanda_filas[fila] -= 1
+                            demanda_columnas[c] -= 1
+                             
+                    else:  # Vertical
+                        for f in range(fila, fila + barco_actual):
+                            tablero[f][col] = 1
+                            demanda_filas[f] -= 1
+                            demanda_columnas[col] -= 1
+
+                    if ubicar_barcos_backtracking(lista_barcos, tablero, demanda_filas, demanda_columnas, (fila,col), barco_actual):
+                        return True
+                                        
+                    if orientacion == "H":
+                        for c in range(col, col + barco_actual):
+                            tablero[fila][c] = 0
+                            demanda_filas[fila] += 1
+                            demanda_columnas[c] += 1
+
+                    else:  # Vertical
+                        for f in range(fila, fila + barco_actual):
+                            tablero[f][col] = 0
+                            demanda_filas[f] += 1
+                            demanda_columnas[col] += 1
+
+    lista_barcos.append(barco_actual)
+    return False
+
+    
+
 
 def limpiar_pantalla():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def mostrar_tablero(tablero, demanda_filas, demanda_columnas):
-    limpiar_pantalla()
 
     print("   ", end="")
     for dem in demanda_columnas:
@@ -252,7 +254,20 @@ m = len(demandas_columnas)
 tablero = [[0] * m for _ in range(n)] 
 
 
-resultado = ubicar_barcos(barcos, tablero, demandas_filas, demandas_columnas)
+solucion_parcial = []
+solucion_optima = []
+
+import time
+
+inicio = time.time()
+
+resultado = ubicar_barcos_backtracking(barcos, tablero, demandas_filas, demandas_columnas, (0,0), 0)
+print("Mejor solución:", resultado)
+
+fin = time.time()
+tiempo_transcurrido = fin - inicio
+
+print(f"El algoritmo tardó {tiempo_transcurrido:.6f} segundos en ejecutarse.")
 
 mostrar_tablero(tablero, demandas_filas, demandas_columnas)
 
