@@ -3,28 +3,44 @@ import sys
 import time
 
 def verifica_adyacencia(tablero, fila, col, largo, orientacion):
-    if orientacion == "H": 
-        # Verificr filas superior e inferior
-        if fila > 0 and any(tablero[fila - 1][c] == 1 for c in range(col, col + largo)):
-            return False
-        if fila < len(tablero) - 1 and any(tablero[fila + 1][c] == 1 for c in range(col, col + largo)):
-            return False
-        # Verificar casillas adyacentes izquierda y derecha
+    if orientacion == "H":
+        if fila > 0:
+            # superior y sus diagonales
+            for c in range(max(0, col-1), min(len(tablero[0]), col + largo + 1)):
+                if tablero[fila - 1][c] == 1:
+                    return False
+                    
+        if fila < len(tablero) - 1:
+            # inferior y sus diagonales
+            for c in range(max(0, col-1), min(len(tablero[0]), col + largo + 1)):
+                if tablero[fila + 1][c] == 1:
+                    return False
+                    
+        # izquierda y derecha
         if col > 0 and tablero[fila][col - 1] == 1:
             return False
         if col + largo < len(tablero[0]) and tablero[fila][col + largo] == 1:
             return False
-    elif orientacion == "V": 
-        # Verificar columnas izquierda y derecha
-        if col > 0 and any(tablero[f][col - 1] == 1 for f in range(fila, fila + largo)):
-            return False
-        if col < len(tablero[0]) - 1 and any(tablero[f][col + 1] == 1 for f in range(fila, fila + largo)):
-            return False
-        # Verificar casillas adyacentes arriba y abajo.
+
+    elif orientacion == "V":
+        if col > 0:
+            # izquierda y sus diagonales
+            for f in range(max(0, fila-1), min(len(tablero), fila + largo + 1)):
+                if tablero[f][col - 1] == 1:
+                    return False
+                    
+        if col < len(tablero[0]) - 1:
+            #  derecha y sus diagonales
+            for f in range(max(0, fila-1), min(len(tablero), fila + largo + 1)):
+                if tablero[f][col + 1] == 1:
+                    return False
+                    
+        # arriba y abajo
         if fila > 0 and tablero[fila - 1][col] == 1:
             return False
         if fila + largo < len(tablero) and tablero[fila + largo][col] == 1:
             return False
+
     return True
 
 
