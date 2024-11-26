@@ -121,7 +121,7 @@ def es_valido(tablero, fila, col, largo, orientacion, demanda_columnas):
 
 
 def ubicar_barcos_backtracking(lista_barcos, tablero, demanda_filas, demanda_columnas, indice_anterior, barco_anterior):
-    if not lista_barcos:
+    if not lista_barcos or (sum(demanda_filas) == 0 and sum(demanda_columnas) == 0):
         return True
     barco_actual = lista_barcos.pop()
     i_fila = 0
@@ -168,23 +168,39 @@ def ubicar_barcos_backtracking(lista_barcos, tablero, demanda_filas, demanda_col
 
                     if ubicar_barcos_backtracking(lista_barcos, tablero, demanda_filas, demanda_columnas, (fila,col), barco_actual):
                         return True
-                                        
-                    if orientacion == "H":
-                        for c in range(col, col + barco_actual):
-                            tablero[fila][c] = 0
-                            demanda_filas[fila] += 1
-                            demanda_columnas[c] += 1
+                    
+                    else:
+                        if orientacion == "H":
+                            for c in range(col, col + barco_actual):
+                                tablero[fila][c] = 0
+                                demanda_filas[fila] += 1
+                                demanda_columnas[c] += 1
 
-                    else:  # Vertical
-                        for f in range(fila, fila + barco_actual):
-                            tablero[f][col] = 0
-                            demanda_filas[f] += 1
-                            demanda_columnas[col] += 1
+                        else:  # Vertical
+                            for f in range(fila, fila + barco_actual):
+                                tablero[f][col] = 0
+                                demanda_filas[f] += 1
+                                demanda_columnas[col] += 1
 
-    lista_barcos.append(barco_actual)
+    # Lo cambié para que lo guarde al "final" de la lista despues hay que cambiar el pop 
+    # para leerla desde la posicion 0
+    lista_barcos.insert(0, barco_actual)
     return False
+    # ubicar_barcos_backtracking(lista_barcos, tablero, demanda_filas, demanda_columnas, indice_anterior, barco_anterior)
 
-    
+#Esto es para el caso de volumen que tiene barcos de tamaño mayor al del 
+# maximo de demanda de columnas y filas
+def filtrar_barcos_inviables(barcos, demandas_filas, demandas_columnas):
+    max_demanda_filas = max(demandas_filas)
+    max_demanda_columnas = max(demandas_columnas)
+
+    barcos_viables = []
+    for barco in barcos:
+        # Verificar si el barco cabe en al menos una fila o columna
+        if barco <= max_demanda_filas or barco <= max_demanda_columnas:
+            barcos_viables.append(barco)
+
+    return barcos_viables
 
 
 def limpiar_pantalla():
@@ -238,6 +254,9 @@ def leer_archivo(nombre_archivo):
     demandas_filas = bloques[0] if len(bloques) > 0 else []
     demandas_columnas = bloques[1] if len(bloques) > 1 else []
     barcos = bloques[2] if len(bloques) > 2 else []
+    # print("Barcosss: ", barcos)
+    barcos = filtrar_barcos_inviables(barcos, demandas_filas, demandas_columnas)
+    barcos.sort()
 
     return demandas_filas, demandas_columnas, barcos
 
