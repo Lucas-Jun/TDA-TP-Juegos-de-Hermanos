@@ -205,11 +205,6 @@ def ubicar_barcos(lista_barcos, usados, tablero, demanda_filas, demanda_columnas
 
          # Si el barco es del mismo tamaño que el anterior y el anterior no se pudo colocar
         if i > 0 and (usados[i-1] == False and lista_barcos[i-1] == lista_barcos[i]):
-            print("""ENTROOOO
-                  EEEEEE
-                  
-                  
-                  eee""")
             continue
 
         barco_actual = lista_barcos[i]
