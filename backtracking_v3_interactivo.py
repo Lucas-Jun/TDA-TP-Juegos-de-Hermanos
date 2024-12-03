@@ -4,6 +4,7 @@ import time
 
 # ----------------------------------- imprimir por pantalla --------------
 def limpiar_pantalla():
+    # Enter para continuar
     input("")
     os.system('cls' if os.name == 'nt' else 'clear')
 
