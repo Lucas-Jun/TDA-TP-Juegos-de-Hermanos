@@ -127,10 +127,6 @@ def ubicar_barcos_backtracking(lista_barcos, tablero, demanda_filas, demanda_col
     i_fila = 0
     i_columna = 0
 
-    # esto rompe aun nose porque
-    #if (barco_anterior <= barco_actual):
-    #    i_fila, _ = indice_anterior
-
     primera_vez = True
     for orientacion in ["H", "V"]:
         if primera_vez and barco_actual == 1:
@@ -260,7 +256,7 @@ def leer_archivo(nombre_archivo):
 
     return demandas_filas, demandas_columnas, barcos
 
-archivo = "10_10_10.txt"
+archivo = "./test-juegoDeHermanos/parte3-tests/10_10_10.txt"
 demandas_filas, demandas_columnas, barcos = leer_archivo(archivo)
 
 print("Demandas de las filas:", demandas_filas)

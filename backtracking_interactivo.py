@@ -301,7 +301,7 @@ def leer_archivo(nombre_archivo):
     return demandas_filas, demandas_columnas, barcos
 
 # Nombre del archivo
-archivo = "10_10_10.txt"
+archivo = "./test-juegoDeHermanos/parte3-tests/10_10_10.txt"
 demandas_filas, demandas_columnas, barcos = leer_archivo(archivo)
 
 # Imprimir los datos para verificar
